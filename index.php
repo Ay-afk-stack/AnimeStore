@@ -52,18 +52,15 @@ include('./functions/common_function.php')
 </div>
 
 <!-- fourth Child -->
-<div class="row px-1 m-2">
+<div class="px-1 m-2">
   <!-- Products -->
-<div class="col-md-12">
-      <div class="row">
+<div class="d-flex justify-content-center ">
             <!-- fetching items -->
             <?php 
                 getProducts();
                 getUniqueCategories();
 
             ?>
-      <!-- row end -->
-    </div>
   <!-- col end -->
   </div>
 </div>

@@ -38,11 +38,11 @@ function getProducts()
             $product_image1 = $row['product_image1'];
             $product_price = $row['product_price'];
             $category_id = $row['category_id'];
-            echo " <div class='col-md-4 mb-3'>
+            echo " <div class='mx-3 mb-3'>
                 
                 <div class='card'>
+                <div class='card-body'>
                     <img src='./admin_area/product_images/$product_image1' class='card-img-top p-2' alt='...'>
-                    <div class='card-body'>
                         <h5 class='card-title'>$product_name</h5>
                         <p class='fs-5'>Rs-$product_price</p>
                         <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add To Cart</a>
@@ -54,6 +54,54 @@ function getProducts()
         }
     }
 }
+
+//Similar Category
+function SimilarCategory() {
+    global $con;
+
+    if (isset($_GET['product_id'])) {
+        $product_id = $_GET['product_id'];
+
+        // 1. Fetch the category_id of the current product
+        $select_query = "SELECT * FROM products WHERE product_id = $product_id";
+        $result_query = mysqli_query($con, $select_query);
+        
+        // If product exists, get the category ID
+        if ($row = mysqli_fetch_assoc($result_query)) {
+            $category_id = $row['category_id'];
+
+            // 2. Fetch other products from the same category, excluding the current product
+            $related_query = "SELECT * FROM products WHERE category_id = $category_id AND product_id != $product_id order by rand() LIMIT 3"; // Fetch up to 4 related products
+            $related_result = mysqli_query($con, $related_query);
+
+            // 3. Display the related products
+            while ($related_row = mysqli_fetch_assoc($related_result)) {
+                $related_product_id = $related_row['product_id'];
+                $related_product_name = $related_row['product_name'];
+                $related_product_price = $related_row['product_price'];
+                $related_product_image1 = $related_row['product_image1'];
+
+                echo "
+                <div class='mx-3 mb-3'>
+                
+                <div class='card'>
+                <div class='card-body'>
+                    <img src='./admin_area/product_images/$related_product_image1' class='card-img-top p-2' alt='...'>
+                        <h5 class='card-title'>$related_product_name</h5>
+                        <p class='fs-5'>Rs-$related_product_price</p>
+                        <a href='index.php?add_to_cart=$related_product_id' class='btn btn-primary'>Add To Cart</a>
+                                        <a href='product_details.php?product_id=$related_product_id' class='btn btn-secondary'>View More</a>
+                                        
+                                </div>
+                            </div>
+                            </div>
+                ";
+            }
+        }
+    }
+}
+
+
 // Getting all products
 function allProducts()
 {
@@ -71,7 +119,7 @@ function allProducts()
             $product_image1 = $row['product_image1'];
             $product_price = $row['product_price'];
             $category_id = $row['category_id'];
-            echo " <div class='col-md-4 mb-3'>
+            echo " <div class='p-2'>
                 
                 <div class='card'>
                     <img src='./admin_area/product_images/$product_image1' class='card-img-top p-2' alt='...'>
@@ -124,14 +172,14 @@ function getUniqueCategories()
         }
     }
 }
-// searching product
 
+// searching product
 function searchProduct()
 {
     global $con;
     if (isset($_GET['search_data_product'])) {
         $search_data_value = $_GET['search_data'];
-        $search_query = "select * from `products` where product_keywords like '%$search_data_value%'";
+        $search_query = "select * from products where product_keywords like '%$search_data_value%'";
         $result_query = mysqli_query($con, $search_query);
         $num_of_rows = mysqli_num_rows($result_query);
         if ($num_of_rows === 0) {
@@ -182,35 +230,46 @@ function view_details()
                 $product_image3 = $row['product_image3'];
                 $product_price = $row['product_price'];
                 $category_id = $row['category_id'];
-                echo " <div class='col-md-4 my-4'>
-                
-                <div class='card pt-2'>
-                    <img src='./admin_area/product_images/$product_image1' class='card-img-top pt-2' alt='...'>
-                    <div class='card-body'>
-                        <h5 class='card-title'>$product_name</h5>
-                        <p class='fs-5'>Rs-$product_price</p>
-                        <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add To Cart</a>
-                                        <a href='index.php' class='btn btn-secondary'>Go Home</a>
-                                        
-                                </div>
-                            </div>
-                            </div>
-                            <div class='col-md-8'>
-                            <!--related Images -->
-                            <div class='row m-2'>
-                              <div class='col-md-12'>
-                                <h4 class='text-center m-2'>Related Products</h4>
-                              </div>
-                              <div class='col-md-6'>
-                              <img src='./admin_area/product_images/$product_image2' class='card-img-top p-2 border' alt='...'>
-                              </div>
-                              <div class='col-md-6'>
-                              <img src='./admin_area/product_images/$product_image3' class='card-img-top p-2 border' alt='...'>
-                              </div>
-                            </div>
-                            <p class='fs-5 mt-4'>$product_description</p>
-                          </div>
-                            
+                echo " <div class='container my-4'>
+    <div class='row g-4'>
+        <!-- Product Card Section (left side) -->
+        <div class='col-md-4'>
+            <div class='card border rounded shadow-sm h-100 '>
+                <img src='./admin_area/product_images/$product_image1' class='card-img-top pt-3' alt='Product Image'>
+                <div class='card-body'>
+                    <h5 class='card-title pt-3 ps-3'>$product_name</h5>
+                    <p class='fs-5 text-muted ps-3'>Rs-$product_price</p>
+                    <div class='d-flex justify-content-between'>
+                        <a href='index.php?add_to_cart=$product_id' class='btn btn-primary position-absolute start-0 bottom-0 mb-4 ms-4'>Add To Cart</a>
+                        <a href='index.php' class='btn btn-secondary position-absolute bottom-0  end-0 mb-4 me-4'>Go Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Description and Related Images Section (right side) -->
+        <div class='col-md-8'>
+            <!-- Related Images Section -->
+            <div class='border p-3 rounded shadow-sm mb-4'>
+                <h4 class='text-center mb-3'>Other Images</h4>
+                <div class='row g-2'>
+                    <div class='col-md-6'>
+                        <img src='./admin_area/product_images/$product_image2' class='img-fluid card-img-top rounded ' alt='...'>
+                    </div>
+                    <div class='col-md-6'>
+                        <img src='./admin_area/product_images/$product_image3' class='img-fluid card-img-top rounded ' alt='...'>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Description Section -->
+            <div class='border p-3 rounded shadow-sm'>
+                <h5 class='ms-4'>Product Description:</h5>
+                <p class='fs-5 ms-4'>$product_description</p>
+            </div>
+        </div>
+    </div> <!-- End of row -->
+</div> <!-- End of container -->
                             ";
             }
         }

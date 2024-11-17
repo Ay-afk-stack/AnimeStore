@@ -32,23 +32,31 @@ include('./functions/common_function.php')
     <p class="text-center">Get Your Anime merch and accessories.</p>
 </div>
 
-<!-- fourth Child -->
-<div class="row px-1 m-2">
-  <!-- Products -->
-<div class="col-md-12">
-      <div class="row border rounded">
-            <!-- fetching items -->
+<!-- Fourth Child: Product List Section -->
+<div class="container my-4">
+    <div class="border p-4 rounded shadow-sm">
+        <div class="">
+            <!-- Fetching items -->
             <?php 
                 view_details();
                 getUniqueCategories();
+            ?>
+        </div>
+    </div>
+</div> <!-- End of container -->
+<!-- last child -->
+ <div>
+   <h3 class="text-center mt-3 my-2">Related Products</h3>
+ </div>
+<div class="d-flex justify-content-center">
+            <!-- fetching items -->
+            <?php 
+                SimilarCategory();
+                getUniqueCategories();
 
             ?>
-      <!-- row end -->
-    </div>
   <!-- col end -->
   </div>
-</div>
-<!-- last child -->
 <!-- Footer -->
 <?php 
 include ('./includes/footer.php');

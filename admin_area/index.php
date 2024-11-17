@@ -49,99 +49,98 @@ include("./includes/links.php");
             </div>
 
         </nav>
-        <!-- second child -->
-        <div class="mx-auto">
-            <h3 class="text-center p-2 my-4">
-                Manage Details
-            </h3>
-            <div class="row mx-auto d-flex justify-content-around">
-                        <div class="col-xl-4 col-md-6 mb-4 ">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                No. Of Products</div>
-                                                <?php
-                                                    $products = "Select * from `products`";
-                                                    $result=mysqli_query($con,$products);
-                                                    if ($result = mysqli_query($con, $products)) {
-                                                        $itemsCount = mysqli_num_rows( $result );
-                                                    }
-                                                ?>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $itemsCount ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa-solid fa-list fa-2x text-grey"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<!-- Second child -->
+<div class="mx-auto">
+    <h3 class="text-center p-2 my-4">Manage Details</h3>
+
+    <!-- Row for Stats Cards -->
+    <div class="row mx-auto d-flex justify-content-center">
+        <!-- No. of Products -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card border-left-primary shadow-sm h-100 py-3">
+                <div class="card-body d-flex align-items-center">
+                    <div class="col mr-3">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            No. Of Products
                         </div>
-                        <div class="col-xl-4 col-md-6 mb-4 ">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                No. Of Categories</div>
-                                                <?php
-                                                    $categories = "Select * from `categories`";
-                                                    $result=mysqli_query($con,$categories);
-                                                    if ($result = mysqli_query($con, $categories)) {
-                                                        $categoriesCount = mysqli_num_rows( $result );
-                                                    }
-                                                ?>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $categoriesCount ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa-solid fa-layer-group fa-2x text-grey"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <?php
+                            $products = "SELECT * FROM products";
+                            $result = mysqli_query($con, $products);
+                            if ($result) {
+                                $itemsCount = mysqli_num_rows($result);
+                            }
+                        ?>
+                        <div class="h4 mb-0 font-weight-bold text-gray-800">
+                            <?php echo $itemsCount; ?>
                         </div>
-                        <div class="col-xl-4 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings</div>
-                                                <?php
-                                                     $ordersMoney = "Select * from `user_orders`";
-                                                     $result=mysqli_query($con,$ordersMoney);
-                                                     $row_count=mysqli_num_rows($result);
-                                                     $number = 0;
-                                                     while ($row_data = mysqli_fetch_assoc($result)) {
-                                                     $order_status = $row_data["order_status"];
-                                                     if($order_status=="Complete"){
-                                                        $order_price=$row_data["amount_due"];
-                                                        $number=$number+$order_price;
-                                                     }
-                                                    }
-                                                ?>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                Rs.<?php
-                                                    echo $number;
-                                                
-                                                ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fa-solid fa-money-bill-wave fa-2x text-grey"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-box fa-2x text-primary"></i>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- No. of Categories -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card border-left-success shadow-sm h-100 py-3">
+                <div class="card-body d-flex align-items-center">
+                    <div class="col mr-3">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            No. Of Categories
+                        </div>
+                        <?php
+                            $categories = "SELECT * FROM categories";
+                            $result = mysqli_query($con, $categories);
+                            if ($result) {
+                                $categoriesCount = mysqli_num_rows($result);
+                            }
+                        ?>
+                        <div class="h4 mb-0 font-weight-bold text-gray-800">
+                            <?php echo $categoriesCount; ?>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-layer-group fa-2x text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card border-left-warning shadow-sm h-100 py-3">
+                <div class="card-body d-flex align-items-center">
+                    <div class="col mr-3">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Earnings
+                        </div>
+                        <?php
+                            $ordersMoney = "SELECT * FROM user_orders";
+                            $result = mysqli_query($con, $ordersMoney);
+                            $number = 0;
+                            while ($row_data = mysqli_fetch_assoc($result)) {
+                                $order_status = $row_data["order_status"];
+                                if ($order_status == "Complete") {
+                                    $order_price = $row_data["amount_due"];
+                                    $number = $number + $order_price;
+                                }
+                            }
+                        ?>
+                        <div class="h4 mb-0 font-weight-bold text-gray-800">
+                            Rs. <?php echo number_format($number, 2); ?>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-money-bill-wave fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Row -->
+</div>
+
+
         <!-- Third Child -->
          <hr />
         <div class="row">

@@ -27,18 +27,15 @@ include('./functions/common_function.php')
 </div>
 
 <!-- Fourth Child -->
-<div class="row px-1 m-2">
-  <!-- Products -->
-<div class="col-md-12">
-      <div class="row">
+<!-- Fourth Child -->
+    <div class="container my-4">
+        <!-- Products Row -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <!-- fetching items -->
             <?php 
                 allProducts();
                 getUniqueCategories();
-
             ?>
-      <!-- row end -->
-  </div>
   <!-- col end -->
 </div>
 <!-- fourth end -->
