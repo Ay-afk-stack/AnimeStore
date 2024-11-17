@@ -210,6 +210,11 @@ function searchProduct()
     }
 }
 
+
+
+
+
+
 //view details function\\
 function view_details()
 {

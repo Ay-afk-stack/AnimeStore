@@ -212,5 +212,7 @@ include("./includes/links.php");
 
     <!-- Bootstraps Js link -->
 <?php include('../includes/bootstrapsjs.php') ?>
+
+
 </body>
 </html>

@@ -52,8 +52,10 @@ session_start();
         <li class="nav-item">
           <form class="d-flex position-relative w-100" role="search" action="search_product.php" method="get">
             <input class="form-control fs-5 me-3 " type="search" placeholder="Search" aria-label="Search"
-              name="search_data">
+              name="search_data"  autocomplete="off">
+              
             <input class="btn btn-outline-light fs-5" type="submit" value="search" name="search_data_product">
+        
           </form>
         </li>
       </ul>
