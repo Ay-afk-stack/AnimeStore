@@ -46,9 +46,14 @@ include('./functions/common_function.php')
 <!--php code to display -->
 <?php
     global $con;
-    $get_ip=getIPAddress();
+    $username = $_SESSION['username'];
+    $get_details = "Select * from `user_table` where username='$username'";
+    $result_query = mysqli_query($con, $get_details);
+    while ($row_query = mysqli_fetch_array($result_query)) {
+       $user_id = $row_query["user_id"];
+    }
     $total_price=0;
-    $cart_query="select * from `cart_details` where ip_address='$get_ip'";
+    $cart_query="select * from `cart_details` where user_id='$user_id'";
     $result_query=mysqli_query($con,$cart_query);
     $result_count=mysqli_num_rows($result_query);
     if($result_count>0){
@@ -81,12 +86,17 @@ include('./functions/common_function.php')
                 <tr>
                     <td><?php echo $product_name ?></td>
                     <td><img src="./admin_area/product_images/<?php echo $product_image1 ?>" alt="" class="cart-image"></td>
-                    <td><input type="number" name="qty" class="w-25" value="1" autocomplete=off></td>
+                    <td><input type="number" name="qty" class="w-25 text-center" value="1" autocomplete=off></td>
                     <?php 
-                        $get_ip=getIPAddress();
+                    $username = $_SESSION['username'];
+                    $get_details = "Select * from `user_table` where username='$username'";
+                    $result_query = mysqli_query($con, $get_details);
+                    while ($row_query = mysqli_fetch_array($result_query)) {
+                    $user_id = $row_query["user_id"];
+                    }
                         if(isset($_POST['update_cart'])){
                                 $quantities=$_POST['qty'];
-                                $update_cart="update `cart_details` set quantity=$quantities where ip_address='$get_ip'";
+                                $update_cart="update `cart_details` set quantity=$quantities where user_id='$user_id'";
                                 $result_products_quantity=mysqli_query($con,$update_cart);
                         $total_price = $total_price * $quantities;
                         }
@@ -99,9 +109,10 @@ include('./functions/common_function.php')
                     </td>
                 </tr>
 <?php 
-        }
+    }
  }
 }
+
 else{
     echo "<h2 class='text-center text-danger'>Cart is empty</h2>";
 }
@@ -110,8 +121,13 @@ else{
         </table>
         <div class="my-3 d-flex">
             <?php 
-                 $get_ip=getIPAddress();
-                 $cart_query="select * from `cart_details` where ip_address='$get_ip'";
+                 $username = $_SESSION['username'];
+    $get_details = "Select * from `user_table` where username='$username'";
+    $result_query = mysqli_query($con, $get_details);
+    while ($row_query = mysqli_fetch_array($result_query)) {
+       $user_id = $row_query["user_id"];
+    }
+                 $cart_query="select * from `cart_details` where user_id='$user_id'";
                  $result_query=mysqli_query($con,$cart_query);
                  $result_count=mysqli_num_rows($result_query);
                  if($result_count>0){
@@ -136,7 +152,7 @@ else{
 </form>
 <!-- To remove items -->
 <?php 
-    function remove_cart_item(){
+     function remove_cart_item(){
         global $con;
         if(isset($_POST['remove_cart'])){
             foreach($_POST['removeitem'] as $remove_id){    
@@ -150,6 +166,7 @@ else{
     }
     }
     echo $remove_item=remove_cart_item();
+
 ?>
 
 <!-- last child -->

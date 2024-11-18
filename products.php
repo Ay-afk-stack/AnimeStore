@@ -26,7 +26,14 @@ include('./functions/common_function.php')
     <p class="text-center">Get Your Anime merch and accessories.</p>
 </div>
 
-<!-- Fourth Child -->
+<!-- search Child -->
+ <form class="d-flex position-relative mx-auto w-25" role="search" action="search_product.php" method="get">
+            <input class="form-control fs-5 me-3 " type="search" placeholder="Search" aria-label="Search"
+              name="search_data"  autocomplete="off">
+              
+            <input class="btn btn-primary fs-5" type="submit" value="search" name="search_data_product">
+        
+          </form>
 <!-- Fourth Child -->
     <div class="container my-4">
         <!-- Products Row -->

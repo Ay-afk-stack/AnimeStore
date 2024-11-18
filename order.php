@@ -8,9 +8,8 @@ if(isset($_GET['user_id'])){
 }
 
 //getting the total items and total price of all the items.
-$get_ip_address=getIPAddress();
 $total_price = 0;
-$cart_query_price = "Select * from `cart_details` where ip_address='$get_ip_address'";
+$cart_query_price = "Select * from `cart_details` where user_id='$user_id'";
 $result_cart_price=mysqli_query($con, $cart_query_price);
 $invoice_number = mt_rand();
 $status = 'pending';

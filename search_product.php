@@ -25,26 +25,32 @@ include('./functions/common_function.php')
        <?php cart(); ?>
 
 <!-- third child -->
-<div class="bg-light mt-2">
+<div class=" mt-2">
     <h3 class="text-center">Items and Accessories</h3>
     <p class="text-center">Get Your Anime merch and accessories.</p>
+     <form class="d-flex position-relative mb-3 mx-auto w-25" role="search" action="search_product.php" method="get">
+            <input class="form-control fs-5 me-3 " type="search" placeholder="Search" aria-label="Search"
+              name="search_data"  autocomplete="off">
+              
+            <input class="btn btn-primary fs-5" type="submit" value="search" name="search_data_product">
+        
+          </form>
 </div>
 
+
 <!-- Fourth Child -->
-<div class="row px-1 m-2">
-  <!-- Products -->
-<div class="col-md-12">
-      <div class="row">
+<!-- Fourth Child -->
+    <div class="container my-4">
+        <!-- Products Row -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <!-- fetching items -->
             <?php 
                 searchProduct();
                 getUniqueCategories();
-
             ?>
-      <!-- row end -->
-    </div>
   <!-- col end -->
-  </div>
+</div>
+<!-- fourth end -->
 </div>
 
 <!-- last child -->

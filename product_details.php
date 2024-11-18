@@ -16,7 +16,23 @@ include('./functions/common_function.php')
     <?php 
     include('./includes/links.php')
     ?>
-
+<style>
+   .fa-star {
+    color: #ddd;
+    cursor: pointer;
+    font-size: 2em; /* Increase star size */
+    transition: color 0.2s;
+  }
+  .fa-star.checked {
+    color: #ffc107;
+}
+    .product-image-container img {
+                        width: 100%; /* Ensures the image takes full width of its container */
+                        height: auto; /* Maintains aspect ratio */
+                        max-height: 300px; /* Sets a maximum height for consistent alignment */
+                        object-fit: cover; /* Ensures the image fills the area without distortion */ /* Adds a shadow for better visibility */
+    }
+</style>
 </head>
 <body>
   <!-- Navbar -->
@@ -42,21 +58,21 @@ include('./functions/common_function.php')
                 getUniqueCategories();
             ?>
         </div>
-    </div>
+
 </div> <!-- End of container -->
 <!-- last child -->
  <div>
-   <h3 class="text-center mt-3 my-2">Related Products</h3>
+   <h3 class="text-center mt-3 my-4">Recommendation for you</h3>
  </div>
 <div class="d-flex justify-content-center">
             <!-- fetching items -->
             <?php 
                 SimilarCategory();
                 getUniqueCategories();
-
             ?>
   <!-- col end -->
   </div>
+</div>
 <!-- Footer -->
 <?php 
 include ('./includes/footer.php');
@@ -67,5 +83,21 @@ include ('./includes/footer.php');
     
 <!-- bootstrap js -->
 <?php include('./includes/bootstrapsjs.php') ?>
+<!-- RATING SCRIPT -->
+<script>
+  document.querySelectorAll('.fa-star').forEach(star => {
+    star.addEventListener('click', function() {
+      const rating = this.getAttribute('data-rating');
+      document.getElementById('rating-value').value = rating;
+      
+      // Update the checked class for selected stars
+      document.querySelectorAll('.fa-star').forEach(s => s.classList.remove('checked'));
+      for (let i = 1; i <= rating; i++) {
+        document.querySelector(`.fa-star[data-rating="${i}"]`).classList.add('checked');
+      }
+    });
+  });
+</script>
+
 </body>
 </html>

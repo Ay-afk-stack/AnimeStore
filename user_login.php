@@ -55,44 +55,43 @@ include("./functions/common_function.php");
 </html>
 <!-- PHP code -->
 <?php
-if(isset($_POST['user_login'])){
-    $user_username=$_POST["user_username"];
-    $user_password=$_POST["user_password"];
-    $select_query = "Select * from `user_table` where username='$user_username'";
-    $result=mysqli_query($con,$select_query);
-    $rows_count=mysqli_num_rows($result);
-    $row_data=mysqli_fetch_assoc($result);
-    $user_ip=getIPAddress();
+if (isset($_POST['user_login'])) {
+    // Sanitize user inputs to avoid SQL injection
+    $user_username = mysqli_real_escape_string($con, $_POST["user_username"]);
+    $user_password = $_POST["user_password"]; // Passwords should not be sanitized, as they are hashed
 
+    // Prepare and execute the query to fetch the user record
+    $select_query = "SELECT * FROM `user_table` WHERE username='$user_username'";
+    $result = mysqli_query($con, $select_query);
+    $rows_count = mysqli_num_rows($result);
+    $row_data = mysqli_fetch_assoc($result);
 
-    //cart items
-    $select_query_cart = "Select * from `cart_details` where ip_address='$user_ip'";
-    $select_cart=mysqli_query($con,$select_query_cart);
-    $rows_count_cart=mysqli_num_rows($select_cart);
-    
     if ($rows_count > 0) {
+        // Verify password
         if (password_verify($user_password, $row_data['user_password'])) {
-            // echo "<script>alert('Login Successful')</script>";
-            if ($rows_count == 1 and $rows_count_cart == 0) {
-                $_SESSION['username'] = $user_username;
-                echo "<script>alert('Login Successful')</script>";
-                echo "<script>window.open('profile.php','_self')</script>";
+            $_SESSION['user_id'] = $row_data['user_id'];  // Store user_id in session
+            $_SESSION['username'] = $user_username;  // Store username in session
 
-            }
-            else{
-                $_SESSION['username'] = $user_username;
+            // Check if the user has cart items by user_id
+            $user_id = $row_data['user_id']; // Get user_id from the session
+            $select_query_cart = "SELECT * FROM `cart_details` WHERE user_id = $user_id";
+            $select_cart = mysqli_query($con, $select_query_cart);
+            $rows_count_cart = mysqli_num_rows($select_cart);
+
+            if ($rows_count_cart == 0) {
+                // No items in the cart
                 echo "<script>alert('Login Successful')</script>";
-                echo "<script>window.open('checkout.php','_self')</script>";
+                echo "<script>window.open('profile.php', '_self')</script>";
+            } else {
+                // User has items in the cart
+                echo "<script>alert('Login Successful')</script>";
+                echo "<script>window.open('checkout.php', '_self')</script>";
             }
-        }
-        else{
+        } else {
             echo "<script>alert('Invalid Credentials')</script>";
         }
-    }
-    else{
+    } else {
         echo "<script>alert('Invalid Credentials')</script>";
     }
-
 }
-
 ?>
