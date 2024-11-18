@@ -607,7 +607,7 @@ function cart()
             } else {
                 echo "<script>alert('Error adding item to cart. Please try again.')</script>";
             }
-            echo "<script>window.open('index.php', '_self')</script>";
+            echo "<script>window.open('products.php', '_self')</script>";
         }
     }
 }

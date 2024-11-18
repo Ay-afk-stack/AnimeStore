@@ -50,7 +50,7 @@ $insert_pending_orders = "Insert into `orders_pending`(user_id,invoice_number,pr
 $result_pending = mysqli_query($con, $insert_pending_orders);
 
 //Removing items from cart after checking out
-$empty_cart = "Delete from `cart_details` where ip_address='$get_ip_address'";
+$empty_cart = "Delete from `cart_details` where user_id='$user_id'";
 $result_delete=mysqli_query($con, $empty_cart);
 
 
