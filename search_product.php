@@ -61,8 +61,11 @@ include ('./includes/footer.php');
 
 
 
+
     
 <!-- bootstrap js -->
 <?php include('./includes/bootstrapsjs.php') ?>
+
+
 </body>
 </html>
