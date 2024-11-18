@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2024 at 10:50 AM
+-- Generation Time: Nov 18, 2024 at 04:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -183,7 +183,11 @@ INSERT INTO `ratings` (`id`, `user_id`, `product_id`, `rating`, `created_at`) VA
 (28, 4, 8, 3, '2024-11-18 08:14:23'),
 (29, 5, 8, 4, '2024-11-18 08:14:40'),
 (30, 5, 7, 4, '2024-11-18 08:33:32'),
-(31, 6, 22, 5, '2024-11-18 09:38:35');
+(31, 6, 22, 5, '2024-11-18 09:38:35'),
+(32, 6, 26, 5, '2024-11-18 13:07:51'),
+(33, 6, 25, 3, '2024-11-18 13:09:41'),
+(34, 6, 27, 4, '2024-11-18 13:09:45'),
+(35, 6, 21, 3, '2024-11-18 13:35:47');
 
 -- --------------------------------------------------------
 
@@ -342,7 +346,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `user_orders`

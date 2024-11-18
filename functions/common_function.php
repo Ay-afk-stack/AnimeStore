@@ -263,7 +263,7 @@ function SimilarCategory() {
             return $b['avg_rating'] <=> $a['avg_rating']; // Sort descending
         });
 
-        // 5. Display the top 3 products based on sorted ratings
+        // 5. Display the top 4 products based on sorted ratings
         $top_n = 3;
         for ($i = 0; $i < min($top_n, count($products_with_avg_rating)); $i++) {
             $product = $products_with_avg_rating[$i];
